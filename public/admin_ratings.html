@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ratings - Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .navbar {
+      background: #2c3e50;
+    }
+    .navbar-brand img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: none;
+      box-shadow: none;
+    }
+    .card {
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .rating-stars {
+      color: #f1c40f;
+    }
+    .reply-box {
+      margin-top: 10px;
+    }
+    .reply-box textarea {
+      resize: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark px-3">
+    <a class="navbar-brand d-flex align-items-center" href="admin.html">
+      <img src="pics/logo-removebg-preview.png" alt="Logo"> 
+      <span class="ms-2">Admin Panel</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="admin.html">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="admin_booking.html">Bookings</a></li>
+        <li class="nav-item"><a class="nav-link" href="admin_analytics.html">Analytics</a></li>
+        <li class="nav-item"><a class="nav-link active" href="admin_ratings.html">Ratings</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Ratings Section -->
+  <div class="container my-5">
+    <h2 class="mb-4">Customer Ratings & Reviews</h2>
+    <div class="row g-4">
+      
+      <!-- Review Card -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card p-3">
+          <div class="d-flex align-items-center mb-2">
+            <img src="https://i.pravatar.cc/50?img=1" class="rounded-circle me-2" alt="User">
+            <div>
+              <h6 class="mb-0">Jane Doe</h6>
+              <small class="text-muted">2 days ago</small>
+            </div>
+          </div>
+          <div class="rating-stars mb-2">★★★★★</div>
+          <p class="text-muted">Loved the stay! Clean rooms and excellent service.</p>
+
+          <!-- Admin Reply -->
+          <div class="reply-box">
+            <textarea class="form-control mb-2" rows="2" placeholder="Write a reply..."></textarea>
+            <button class="btn btn-sm btn-primary">Reply</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review Card -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card p-3">
+          <div class="d-flex align-items-center mb-2">
+            <img src="https://i.pravatar.cc/50?img=2" class="rounded-circle me-2" alt="User">
+            <div>
+              <h6 class="mb-0">John Smith</h6>
+              <small class="text-muted">1 week ago</small>
+            </div>
+          </div>
+          <div class="rating-stars mb-2">★★★★☆</div>
+          <p class="text-muted">Great location, but check-in was a bit slow.</p>
+
+          <!-- Admin Reply -->
+          <div class="reply-box">
+            <textarea class="form-control mb-2" rows="2" placeholder="Write a reply..."></textarea>
+            <button class="btn btn-sm btn-primary">Reply</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review Card -->
+      <div class="col-md-6 col-lg-4">
+        <div class="card p-3">
+          <div class="d-flex align-items-center mb-2">
+            <img src="https://i.pravatar.cc/50?img=3" class="rounded-circle me-2" alt="User">
+            <div>
+              <h6 class="mb-0">Emily Clark</h6>
+              <small class="text-muted">3 weeks ago</small>
+            </div>
+          </div>
+          <div class="rating-stars mb-2">★★★★★</div>
+          <p class="text-muted">Perfect experience. Highly recommended!</p>
+
+          <!-- Admin Reply -->
+          <div class="reply-box">
+            <textarea class="form-control mb-2" rows="2" placeholder="Write a reply..."></textarea>
+            <button class="btn btn-sm btn-primary">Reply</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Properties – Clara Court Homes</title>
+  <style>
+    :root {
+      --text: #0d0d0d;
+      --muted: #5b5b5b;
+      --accent: #1f2937;
+      --bg: #ffffff;
+      --card: #ffffff;
+      --shadow: 0 10px 25px rgba(0,0,0,.08);
+      --radius: 20px;
+      --container: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin:0; padding:0; background: var(--bg); color: var(--text); font-family: "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.6; }
+    h1,h2,h3 { font-family: Georgia, 'Times New Roman', Times, serif; margin:0 0 .6rem; }
+    h1 { font-size: clamp(2rem, 2.6rem + 1.2vw, 3rem); }
+    h2 { font-size: 1.6rem; margin-bottom: 1rem; }
+    p { color: var(--muted); margin:0 0 1rem; }
+
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 20px; }
+
+    /* Navbar */
+    nav {
+      position: fixed; top:0; left:0; width:100%; z-index:1000;
+      background: rgba(17,24,39,0.7);; backdrop-filter: blur(8px);
+      box-shadow: var(--shadow); padding: 14px 0;
+    }
+    nav .container { display:flex; align-items:center; justify-content:space-between; }
+    .logo { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:700; font-size:1.1rem; }
+    .logo img { height:40px; width:40px; border-radius:50%; object-fit:cover; }
+    .nav-links { display:flex; gap:24px; }
+    .nav-links a { text-decoration:none; color:var(--text); font-weight:600; transition:.2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      height: 45vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: #fff;
+      margin-top: 72px; /* push down so navbar doesn’t overlap */
+    }
+    .hero img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(.55);
+    }
+    .hero .inner { position: relative; z-index: 2; }
+
+    .btn {
+      display: inline-block; padding: 12px 22px; border-radius: 10px; background:#111827; color:#fff; text-decoration: none; font-weight:600;
+      box-shadow: var(--shadow); cursor: pointer; border: none;
+    }
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+
+    /* Properties */
+    .properties { padding: 64px 0; }
+    .grid { display:grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .card {
+      background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); overflow:hidden;
+      display:flex; flex-direction: column;
+    }
+    .card img { width:100%; height: 220px; object-fit: cover; }
+    .card-body { padding: 20px; flex:1; display:flex; flex-direction: column; }
+    .card-body h3 { font-size: 1.25rem; margin-bottom: .5rem; }
+    .card-body p { flex:1; }
+
+    .amenities {
+      display:flex; flex-wrap: wrap; gap:10px; margin: 12px 0;
+    }
+    .amenity {
+      display:flex; align-items:center; gap:6px;
+      font-size: .9rem; background: #f5f5f5; padding: 6px 12px; border-radius: 8px;
+    }
+    .amenity span { font-size: 1.2rem; }
+
+    .card-footer { margin-top: auto; text-align: center; }
+
+    footer { padding: 32px 0 56px; text-align:center; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="pics/logo-removebg-preview.png" alt="Clara Court Logo">
+        Clara Court
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="booking.html">Book</a>
+        <a href="properties.html">Properties</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <img src="pics/c01.jpg" alt="Properties Hero" />
+    <div class="inner container">
+      <h1>Explore Our Properties</h1>
+      <p>Browse our furnished holiday homes and their premium amenities.</p>
+    </div>
+  </section>
+
+  <!-- Properties Grid -->
+  <section class="properties">
+    <div class="container">
+      <div class="grid">
+        <!-- Property 1 -->
+        <div class="card">
+          <img src="pics/b01.jpg" alt="Luxury Suite" />
+          <div class="card-body">
+            <h3>Luxury Suite</h3>
+            <p>Perfect for families, this apartment blends modern interiors with coastal charm and comfort.</p>
+            <div class="amenities">
+              <div class="amenity"><span>🏊‍♂️</span> Pool</div>
+              <div class="amenity"><span>📶</span> WiFi</div>
+              <div class="amenity"><span>🍽️</span> Dining Area</div>
+              <div class="amenity"><span>🛋️</span> Lounge</div>
+              <div class="amenity"><span>📺</span> Smart TV</div>
+              <div class="amenity"><span>🍳</span> Kitchen</div>
+              <div class="amenity"><span>🅿️</span> Parking</div>
+            </div>
+            <div class="card-footer">
+              <a href="booking.html" class="btn">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Property 2 -->
+        <div class="card">
+          <img src="pics/br01.jpg" alt="Coastal Apartment" />
+          <div class="card-body">
+            <h3>One Bedroom Apartment</h3>
+            <p>A spacious suite offering elegance, comfort, and a private balcony overlooking the gardens.</p>
+            <div class="amenities">
+              <div class="amenity"><span>🛏️</span> 2 Bedrooms</div>
+              <div class="amenity"><span>📺</span> Smart TV</div>
+              <div class="amenity"><span>🍽️</span> Dining Area</div>
+              <div class="amenity"><span>🅿️</span> Parking</div>
+            </div>
+            <div class="card-footer">
+              <a href="booking.html" class="btn">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Property 3 -->
+        <div class="card">
+          <img src="pics/b04.jpg" alt="Poolside Villa" />
+          <div class="card-body">
+            <h3>Studio Apartment</h3>
+            <p>Exclusive villa with direct pool access, private garden, and fully furnished kitchen.</p>
+            <div class="amenities">
+              <div class="amenity"><span>🏊‍♂️</span> Pool Access</div>
+              <div class="amenity"><span>🍳</span> Kitchen</div>
+              <div class="amenity"><span>📶</span> WiFi</div>
+              <div class="amenity"><span>📺</span> Smart TV</div>
+            </div>
+            <div class="card-footer">
+              <a href="booking.html" class="btn">Book Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Clara Court Homes. All rights reserved.
+  </footer>
+</body>
+</html>

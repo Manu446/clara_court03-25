@@ -1,0 +1,130 @@
+// src/Dashboard.js
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./dashboard.css";
+
+export default function Dashboard() {
+  return (
+    <div className="d-flex" id="wrapper">
+      {/* Sidebar */}
+      <div className="border-end bg-dark" id="sidebar-wrapper">
+        <div className="sidebar-heading text-white fw-bold fs-4 py-3">
+          RoomRent
+        </div>
+        <div className="list-group list-group-flush">
+          <a href="#" className="list-group-item list-group-item-action list-group-item-dark p-3">
+            Dashboard
+          </a>
+          <a href="#" className="list-group-item list-group-item-action list-group-item-dark p-3">
+            My Bookings
+          </a>
+          <a href="#" className="list-group-item list-group-item-action list-group-item-dark p-3">
+            Payments
+          </a>
+          <a href="#" className="list-group-item list-group-item-action list-group-item-dark p-3">
+            Profile
+          </a>
+          <a href="#" className="list-group-item list-group-item-action list-group-item-dark p-3">
+            Settings
+          </a>
+        </div>
+      </div>
+
+      {/* Page content */}
+      <div id="page-content-wrapper" className="flex-grow-1">
+        {/* Top navbar */}
+        <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom px-3">
+          <form className="d-flex ms-auto">
+            <input className="form-control me-2" type="search" placeholder="Search..." />
+            <button className="btn btn-outline-dark" type="submit">Search</button>
+          </form>
+          <div className="ms-3">
+            <img
+              src="https://i.pravatar.cc/40"
+              alt="avatar"
+              className="rounded-circle"
+            />
+          </div>
+        </nav>
+
+        {/* Dashboard content */}
+        <div className="container-fluid px-4 mt-4">
+          <h3 className="fw-bold mb-4">Dashboard</h3>
+
+          {/* Stats cards */}
+          <div className="row g-3 mb-4">
+            <div className="col-md-3">
+              <div className="card shadow-sm border-0 stat-card">
+                <div className="card-body">
+                  <h5>Total Bookings</h5>
+                  <h3>12</h3>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="card shadow-sm border-0 stat-card">
+                <div className="card-body">
+                  <h5>Active Stays</h5>
+                  <h3>3</h3>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="card shadow-sm border-0 stat-card">
+                <div className="card-body">
+                  <h5>Payments</h5>
+                  <h3>$1,245</h3>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="card shadow-sm border-0 stat-card">
+                <div className="card-body">
+                  <h5>Messages</h5>
+                  <h3>5</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Recent bookings */}
+          <div className="card shadow-sm border-0">
+            <div className="card-header bg-white fw-bold">Recent Bookings</div>
+            <div className="card-body">
+              <table className="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Room</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Deluxe Apartment</td>
+                    <td>Aug 20 - Aug 22</td>
+                    <td><span className="badge bg-success">Confirmed</span></td>
+                    <td>$200</td>
+                  </tr>
+                  <tr>
+                    <td>Cozy Studio</td>
+                    <td>Aug 15 - Aug 16</td>
+                    <td><span className="badge bg-danger">Cancelled</span></td>
+                    <td>$80</td>
+                  </tr>
+                  <tr>
+                    <td>Beach House</td>
+                    <td>Aug 10 - Aug 12</td>
+                    <td><span className="badge bg-warning text-dark">Pending</span></td>
+                    <td>$350</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
