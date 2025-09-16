@@ -15,7 +15,6 @@
       --radius: 20px;
       --container: 1100px;
     }
-
     * { box-sizing: border-box; }
     body { margin:0; padding:0; background: var(--bg); color: var(--text); font-family: "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.6; }
     h1,h2 { font-family: Georgia, 'Times New Roman', Times, serif; margin:0 0 .6rem; }
@@ -25,7 +24,6 @@
 
     .container { max-width: var(--container); margin: 0 auto; padding: 0 20px; }
 
-    /* Navbar */
     nav {
       position: fixed; top:0; left:0; width:100%; z-index:1000;
       background: rgba(17,24,39,0.7); backdrop-filter: blur(8px);
@@ -38,7 +36,6 @@
     .nav-links a { text-decoration:none; color:#fff; font-weight:600; transition:.2s; }
     .nav-links a:hover { color: var(--accent); }
 
-    /* Hero */
     .hero {
       position: relative;
       min-height: 50vh;
@@ -48,10 +45,7 @@
       color: #fff;
       margin-top: 72px;
     }
-    .hero img {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      filter: brightness(.55);
-    }
+    .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.55); }
     .hero .inner { position: relative; z-index: 2; padding: 0 15px; }
 
     .btn {
@@ -60,7 +54,6 @@
     }
     .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
 
-    /* Booking Form */
     .booking { padding: 64px 0; }
     .form-card {
       background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 32px;
@@ -74,16 +67,12 @@
     input:focus, select:focus {
       outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(31,41,55,.1);
     }
-
     #price-display, #total-display {
       margin-top: 8px;
       font-weight: 600;
       color: var(--accent);
     }
-
     footer { padding: 32px 0 56px; text-align:center; color: var(--muted); }
-
-    /* Responsive */
     @media (max-width: 600px) {
       h1 { font-size: 1.8rem; }
       .form-card { padding: 20px; }
@@ -92,7 +81,6 @@
   </style>
 </head>
 <body>
-  <!-- Navbar -->
   <nav>
     <div class="container">
       <a href="index.html" class="logo">
@@ -108,7 +96,6 @@
     </div>
   </nav>
 
-  <!-- Hero -->
   <section class="hero">
     <img src="pics/gz01.jpg" alt="Booking Hero" />
     <div class="inner container">
@@ -117,12 +104,11 @@
     </div>
   </section>
 
-  <!-- Booking Form -->
   <section class="booking">
     <div class="container">
       <div class="form-card">
         <h2>Booking Details</h2>
-        <form>
+        <form id="bookingForm">
           <div class="form-group">
             <label for="property">Select Property</label>
             <select id="property" name="property" required>
@@ -176,9 +162,7 @@
     </div>
   </section>
 
-  <footer>
-    © 2025 Clara Court Homes. All rights reserved.
-  </footer>
+  <footer>© 2025 Clara Court Homes. All rights reserved.</footer>
 
   <script>
     const propertySelect = document.getElementById("property");
@@ -187,6 +171,7 @@
     const checkoutInput = document.getElementById("checkout");
     const priceDisplay = document.getElementById("price-display");
     const totalDisplay = document.getElementById("total-display");
+    const bookingForm = document.getElementById("bookingForm");
 
     function calculateTotal() {
       const pricePerDay = parseInt(propertySelect.value) || 0;
@@ -197,7 +182,7 @@
       let days = 0;
       if (checkinInput.value && checkoutInput.value && checkout > checkin) {
         const diffTime = checkout - checkin;
-        days = diffTime / (1000 * 60 * 60 * 24); // convert ms to days
+        days = diffTime / (1000 * 60 * 60 * 24);
       }
 
       if (pricePerDay) {
@@ -218,6 +203,21 @@
     roomsSelect.addEventListener("change", calculateTotal);
     checkinInput.addEventListener("change", calculateTotal);
     checkoutInput.addEventListener("change", calculateTotal);
+
+    bookingForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const bookingData = {
+        property: propertySelect.options[propertySelect.selectedIndex].text,
+        pricePerDay: parseInt(propertySelect.value) || 0,
+        rooms: roomsSelect.value,
+        checkin: checkinInput.value,
+        checkout: checkoutInput.value,
+        guests: document.getElementById("guests").value,
+        total: totalDisplay.textContent.replace("Total: Ksh ", "")
+      };
+      localStorage.setItem("bookingData", JSON.stringify(bookingData));
+      window.location.href = "payment.html";
+    });
   </script>
 </body>
 </html>

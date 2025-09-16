@@ -31,10 +31,10 @@
       background: rgba(17,24,39,0.7); backdrop-filter: blur(8px);
       box-shadow: var(--shadow); padding: 14px 0;
     }
-    nav .container { display:flex; align-items:center; justify-content:space-between; }
+    nav .container { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; }
     .logo { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:700; font-size:1.1rem; }
     .logo img { height:40px; width:40px; border-radius:50%; object-fit:cover; }
-    .nav-links { display:flex; gap:24px; }
+    .nav-links { display:flex; gap:24px; flex-wrap:wrap; }
     .nav-links a { text-decoration:none; color:var(--text); font-weight:600; transition:.2s; }
     .nav-links a:hover { color: var(--accent); }
 
@@ -87,6 +87,14 @@
       color: var(--muted);
     }
 
+    #booking-summary {
+      background: #f3f4f6;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+    }
+
     footer { padding: 32px 0 56px; text-align:center; color: var(--muted); }
   </style>
 </head>
@@ -109,17 +117,19 @@
   </nav>
 
   <!-- Hero -->
-  <section class="hero">
-    <img src="pics/payhero.jpg" alt="Payment Hero" />
+  <!-- <section class="hero">
+    <img src="pics/logo-removebg-preview.png" alt="Payment Hero" />
     <div class="inner container">
       <h1>Secure Payment</h1>
       <p>Complete your booking safely with our trusted payment methods.</p>
     </div>
-  </section>
+  </section> -->
 
-  <!-- Payment Form -->
+  <!-- Payment Section -->
   <section class="payment">
     <div class="container">
+      <div id="booking-summary"></div>
+
       <div class="form-card">
         <h2>Payment Details</h2>
         <form id="paymentForm">
@@ -144,12 +154,12 @@
               <label for="card-number">Card Number</label>
               <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" />
             </div>
-            <div class="form-group" style="display:flex; gap:16px;">
-              <div style="flex:1;">
+            <div class="form-group" style="display:flex; gap:16px; flex-wrap:wrap;">
+              <div style="flex:1; min-width:120px;">
                 <label for="expiry">Expiry Date</label>
                 <input type="text" id="expiry" name="expiry" placeholder="MM/YY" />
               </div>
-              <div style="flex:1;">
+              <div style="flex:1; min-width:120px;">
                 <label for="cvv">CVV</label>
                 <input type="password" id="cvv" name="cvv" placeholder="123" />
               </div>
@@ -183,6 +193,12 @@
             </div>
           </div>
 
+          <!-- Amount -->
+          <div class="form-group">
+            <label for="amount">Amount (Ksh)</label>
+            <input type="text" id="amount" name="amount" readonly />
+          </div>
+
           <!-- Submit -->
           <div style="text-align:center; margin-top: 24px;">
             <button class="btn" type="submit">Pay Now</button>
@@ -203,7 +219,10 @@
     const paypalFields = document.getElementById("paypalFields");
     const mobileNetwork = document.getElementById("mobile-network");
     const instructionsBox = document.getElementById("instructionsBox");
+    const bookingSummary = document.getElementById("booking-summary");
+    const amountInput = document.getElementById("amount");
 
+    // Show/hide payment fields
     methodSelect.addEventListener("change", function () {
       cardFields.classList.add("hidden");
       mobileFields.classList.add("hidden");
@@ -218,6 +237,7 @@
       }
     });
 
+    // Show instructions for mobile networks
     mobileNetwork.addEventListener("change", function () {
       instructionsBox.classList.add("hidden");
       let msg = "";
@@ -235,6 +255,22 @@
         instructionsBox.classList.remove("hidden");
       }
     });
+
+    // Load booking data
+    const bookingData = JSON.parse(localStorage.getItem("bookingData"));
+    if (bookingData) {
+      bookingSummary.innerHTML = `
+        <h2>Booking Summary</h2>
+        <p><strong>Property:</strong> ${bookingData.property}</p>
+        <p><strong>Rooms:</strong> ${bookingData.rooms}</p>
+        <p><strong>Check-in:</strong> ${bookingData.checkin}</p>
+        <p><strong>Check-out:</strong> ${bookingData.checkout}</p>
+        <p><strong>Guests:</strong> ${bookingData.guests}</p>
+        <p><strong>Total:</strong> Ksh ${bookingData.total}</p>
+      `;
+
+      amountInput.value = bookingData.total;
+    }
   </script>
 </body>
 </html>
