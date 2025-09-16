@@ -28,31 +28,31 @@
     /* Navbar */
     nav {
       position: fixed; top:0; left:0; width:100%; z-index:1000;
-      background: rgba(17,24,39,0.7);; backdrop-filter: blur(8px);
+      background: rgba(17,24,39,0.7); backdrop-filter: blur(8px);
       box-shadow: var(--shadow); padding: 14px 0;
     }
-    nav .container { display:flex; align-items:center; justify-content:space-between; }
-    .logo { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:700; font-size:1.1rem; }
+    nav .container { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+    .logo { display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; font-weight:700; font-size:1.1rem; }
     .logo img { height:40px; width:40px; border-radius:50%; object-fit:cover; }
-    .nav-links { display:flex; gap:24px; }
-    .nav-links a { text-decoration:none; color:var(--text); font-weight:600; transition:.2s; }
+    .nav-links { display:flex; gap:16px; flex-wrap:wrap; }
+    .nav-links a { text-decoration:none; color:#fff; font-weight:600; transition:.2s; }
     .nav-links a:hover { color: var(--accent); }
 
     /* Hero */
     .hero {
       position: relative;
-      height: 50vh;
+      min-height: 50vh;
       display: grid;
       place-items: center;
       text-align: center;
       color: #fff;
-      margin-top: 72px; /* push down because of fixed navbar */
+      margin-top: 72px;
     }
     .hero img {
       position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
       filter: brightness(.55);
     }
-    .hero .inner { position: relative; z-index: 2; }
+    .hero .inner { position: relative; z-index: 2; padding: 0 15px; }
 
     .btn {
       display: inline-block; padding: 12px 22px; border-radius: 10px; background:#111827; color:#fff; text-decoration: none; font-weight:600;
@@ -75,7 +75,20 @@
       outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(31,41,55,.1);
     }
 
+    #price-display, #total-display {
+      margin-top: 8px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
     footer { padding: 32px 0 56px; text-align:center; color: var(--muted); }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .form-card { padding: 20px; }
+      nav .container { flex-direction: column; gap:10px; }
+    }
   </style>
 </head>
 <body>
@@ -114,9 +127,21 @@
             <label for="property">Select Property</label>
             <select id="property" name="property" required>
               <option value="">-- Choose a property --</option>
-              <option>Luxury Suite</option>
-              <option>Coastal Apartment</option>
-              <option>Poolside Villa</option>
+              <option value="4500">Luxury Suite</option>
+              <option value="3500">One Bedroom Apartment</option>
+              <option value="2000">Studio Apartment</option>
+            </select>
+            <div id="price-display"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="rooms">Number of Rooms</label>
+            <select id="rooms" name="rooms" required>
+              <option value="">-- Select rooms --</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4+</option>
             </select>
           </div>
 
@@ -141,6 +166,8 @@
             </select>
           </div>
 
+          <div id="total-display"></div>
+
           <div style="text-align:center; margin-top: 24px;">
             <button class="btn" type="submit">Confirm Booking</button>
           </div>
@@ -152,5 +179,45 @@
   <footer>
     © 2025 Clara Court Homes. All rights reserved.
   </footer>
+
+  <script>
+    const propertySelect = document.getElementById("property");
+    const roomsSelect = document.getElementById("rooms");
+    const checkinInput = document.getElementById("checkin");
+    const checkoutInput = document.getElementById("checkout");
+    const priceDisplay = document.getElementById("price-display");
+    const totalDisplay = document.getElementById("total-display");
+
+    function calculateTotal() {
+      const pricePerDay = parseInt(propertySelect.value) || 0;
+      const rooms = parseInt(roomsSelect.value) || 0;
+      const checkin = new Date(checkinInput.value);
+      const checkout = new Date(checkoutInput.value);
+
+      let days = 0;
+      if (checkinInput.value && checkoutInput.value && checkout > checkin) {
+        const diffTime = checkout - checkin;
+        days = diffTime / (1000 * 60 * 60 * 24); // convert ms to days
+      }
+
+      if (pricePerDay) {
+        priceDisplay.textContent = `Price: Ksh ${pricePerDay} per day`;
+      } else {
+        priceDisplay.textContent = "";
+      }
+
+      if (pricePerDay && rooms && days > 0) {
+        const total = pricePerDay * rooms * days;
+        totalDisplay.textContent = `Total: Ksh ${total.toLocaleString()}`;
+      } else {
+        totalDisplay.textContent = "";
+      }
+    }
+
+    propertySelect.addEventListener("change", calculateTotal);
+    roomsSelect.addEventListener("change", calculateTotal);
+    checkinInput.addEventListener("change", calculateTotal);
+    checkoutInput.addEventListener("change", calculateTotal);
+  </script>
 </body>
 </html>

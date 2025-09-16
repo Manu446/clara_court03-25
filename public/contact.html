@@ -13,32 +13,67 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f5f7fa;
       color: #333;
+      padding-top: 80px; /* space for fixed navbar */
     }
+
     .navbar {
       background: #2c3e50;
     }
+
     .navbar-brand img {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;   
-        object-fit: cover;    
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;   
+      object-fit: cover;    
     }
 
     .contact-section {
-      padding: 60px 0;
+      padding: 80px 0;
     }
+
     .card {
       border-radius: 15px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      border: none;
     }
+
+    .card h2 {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .form-control:focus {
+      border-color: #3498db;
+      box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+
+    .btn-dark {
+      background-color: #2c3e50;
+      border: none;
+      transition: 0.3s;
+    }
+
+    .btn-dark:hover {
+      background-color: #3498db;
+    }
+
     .social-icons a {
       font-size: 1.5rem;
       margin: 0 10px;
       color: #2c3e50;
       transition: color 0.3s;
     }
+
     .social-icons a:hover {
       color: #3498db;
+    }
+
+    footer {
+      background: #2c3e50;
+      color: #fff;
+      padding: 15px 0;
+      text-align: center;
+      margin-top: 50px;
     }
   </style>
 </head>
@@ -105,6 +140,13 @@
       </div>
     </div>
   </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Clara Court. All rights reserved.</p>
+    </div>
+  </footer>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
