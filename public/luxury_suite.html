@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxury Suite – Clara Court Homes</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #c9a34e;   /* gold accent */
+      --text: #222;
+      --muted: #666;
+      --bg: #fff;
+      --card-bg: #fafafa;
+      --shadow: 0 8px 24px rgba(0,0,0,0.08);
+      --radius: 14px;
+      --max-width: 1100px;
+    }
+
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    h1,h2,h3 {
+      font-family: Georgia, serif;
+      margin-bottom: .6rem;
+    }
+    p { margin-bottom: 1rem; color: var(--muted); }
+
+    .container { max-width: var(--max-width); margin:0 auto; padding:0 20px; }
+
+    /* Navbar */
+    nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      padding: 16px 0;
+      box-shadow: var(--shadow);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      transition: all 0.3s ease;
+    }
+
+    nav.shrink {
+      padding: 8px 0;
+      background: rgba(255, 255, 255, 0.97);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    nav.shrink .logo img {
+      width: 32px;
+      height: 32px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Hamburger Button */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 72px;
+        right: 0;
+        width: 100%;
+        background: var(--bg);
+        flex-direction: column;
+        text-align: center;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-10px);
+        visibility: hidden;
+        transition: all 0.4s ease;
+      }
+
+    .nav-links a {
+      padding: 14px 0;
+      display: block;
+    }
+
+    .nav-links.active {
+      max-height: 300px;
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+  }
+
+
+    /* Hero */
+    .hero {
+      margin-top:72px;
+      height: 60vh;
+      position: relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:#fff;
+    }
+    .hero img {
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit: cover;
+      filter: brightness(0.55);
+    }
+    .hero .inner { position: relative; z-index:2; }
+    .hero h1 { font-size: clamp(2rem, 3vw, 3rem); }
+
+    /* Overview */
+    .overview { padding:64px 0; }
+    .overview .grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+      gap:32px;
+      align-items:center;
+    }
+    .overview img {
+      width:100%; border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    /* Amenities */
+    .amenities { padding:64px 0; }
+    .amenities h2 { text-align:center; margin-bottom:32px; }
+    .amenities-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap:20px;
+    }
+    .amenity {
+      background: var(--card-bg);
+      padding:20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:500;
+    }
+    .amenity i { color: var(--primary); font-size: 1.2rem; }
+
+    /* Booking */
+    .booking { padding:64px 0; background:#f9f9f9; }
+    .booking h2 { text-align:center; margin-bottom:24px; }
+    form {
+      max-width:600px;
+      margin:0 auto;
+      background: var(--bg);
+      padding:24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    label { display:block; margin-bottom:6px; font-weight:600; }
+    input, select {
+      width:100%; padding:10px;
+      margin-bottom:16px;
+      border:1px solid #ddd; border-radius:8px;
+      font-size:1rem;
+    }
+    .total { font-weight:bold; margin:12px 0; }
+
+    .btn {
+      display:inline-block;
+      background: linear-gradient(135deg, var(--primary), #e1c472);
+      color:#fff;
+      border:none;
+      padding:12px 22px;
+      border-radius: 8px;
+      cursor:pointer;
+      font-weight:bold;
+      transition:.3s;
+    }
+    .btn:hover { filter:brightness(1.1); }
+
+    footer { text-align:center; padding:32px; color: var(--muted); }
+
+    @media(max-width:768px) {
+      .hero { height: 40vh; }
+      .overview .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="pics/logo-removebg-preview.png" alt="Logo">
+        Clara Court
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="properties.html">Properties</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <img src="pics/b01.jpg" alt="Luxury Suite">
+    <div class="inner">
+      <h1>Luxury Suite</h1>
+      <p>Experience timeless elegance and premium comfort at Clara Court Homes.</p>
+    </div>
+  </section>
+
+  <!-- Overview -->
+  <section class="overview">
+    <div class="container grid">
+      <div>
+        <h2>About the Suite</h2>
+        <p>
+          Our Luxury Suite offers the perfect blend of sophistication and comfort.
+          Featuring a spacious bedroom, elegant lounge area, and a private balcony
+          with breathtaking views, this suite is designed for guests who seek nothing
+          less than excellence. Every detail, from the furnishings to the lighting,
+          is crafted to deliver a premium experience.
+        </p>
+        <p>
+          Whether you’re here for a holiday or business, the Luxury Suite ensures your
+          stay is unforgettable.
+        </p>
+      </div>
+      <img src="pics/luxury01.jpg" alt="Luxury Suite Interior">
+    </div>
+  </section>
+
+  <!-- Amenities -->
+  <section class="amenities">
+    <div class="container">
+      <h2>Amenities</h2>
+      <div class="amenities-grid">
+        <div class="amenity"><i class="fas fa-bed"></i> King Size Bed</div>
+        <div class="amenity"><i class="fas fa-tv"></i> 65” Smart TV</div>
+        <div class="amenity"><i class="fas fa-bath"></i> Ensuite Bathroom</div>
+        <div class="amenity"><i class="fas fa-utensils"></i> Full Kitchen</div>
+        <div class="amenity"><i class="fas fa-wifi"></i> High-Speed WiFi</div>
+        <div class="amenity"><i class="fas fa-snowflake"></i> Air Conditioning</div>
+        <div class="amenity"><i class="fas fa-swimming-pool"></i> Pool Access</div>
+        <div class="amenity"><i class="fas fa-parking"></i> Free Parking</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="booking">
+    <div class="container">
+      <h2>Book Your Stay</h2>
+      <form id="bookingForm">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" required>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" required>
+
+        <label for="rooms">Number of Rooms</label>
+        <input type="number" id="rooms" value="1" min="1" required>
+
+        <label for="days">Number of Days</label>
+        <input type="number" id="days" value="1" min="1" required>
+
+        <label for="payment">Payment Method</label>
+        <select id="payment" required>
+          <option value="">Select Payment</option>
+          <option value="mobile">Mobile Money</option>
+          <option value="card">Credit/Debit Card</option>
+          <option value="cash">Cash</option>
+        </select>
+
+        <div id="mobileOptions" style="display:none;">
+          <label for="mobileType">Choose Mobile Service</label>
+          <select id="mobileType">
+            <option value="">Select Service</option>
+            <option value="mpesa">M-Pesa</option>
+            <option value="airtel">Airtel Money</option>
+            <option value="tkash">T-Kash</option>
+          </select>
+        </div>
+
+        <div class="total" id="total">Total: KES 0</div>
+        <button type="submit" class="btn">Confirm Booking</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Clara Court Homes. All rights reserved.
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    const navbar = document.querySelector('nav');
+
+    // Toggle mobile menu
+    menuToggle.addEventListener('click', () => {
+      const isActive = navLinks.classList.toggle('active');
+      menuToggle.innerHTML = isActive
+        ? '<i class="fas fa-times"></i>'
+        : '<i class="fas fa-bars"></i>';
+    });
+
+    // Close menu when link is clicked
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+      });
+    });
+
+    // Shrink navbar on scroll
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        navbar.classList.add('shrink');
+      } else {
+        navbar.classList.remove('shrink');
+      }
+    });
+
+    const roomsInput = document.getElementById('rooms');
+    const daysInput = document.getElementById('days');
+    const totalDiv = document.getElementById('total');
+    const paymentSelect = document.getElementById('payment');
+    const mobileOptions = document.getElementById('mobileOptions');
+
+    const pricePerDay = 12000; // Luxury Suite rate
+
+    function updateTotal() {
+      const rooms = parseInt(roomsInput.value) || 0;
+      const days = parseInt(daysInput.value) || 0;
+      const total = rooms * days * pricePerDay;
+      totalDiv.textContent = `Total: KES ${total.toLocaleString()}`;
+    }
+
+    roomsInput.addEventListener('input', updateTotal);
+    daysInput.addEventListener('input', updateTotal);
+
+    paymentSelect.addEventListener('change', () => {
+      if (paymentSelect.value === 'mobile') {
+        mobileOptions.style.display = 'block';
+      } else {
+        mobileOptions.style.display = 'none';
+      }
+    });
+
+    updateTotal();
+  </script>
+</body>
+</html>

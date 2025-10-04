@@ -1,66 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us - Clara Court</title>
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us – Clara Court</title>
+
+  <!-- Bootstrap CSS & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f5f7fa;
+      background: #f8fafc;
       color: #333;
-      padding-top: 80px; /* space for fixed navbar */
+      padding-top: 80px;
     }
 
+    /* Navbar */
     .navbar {
-      background: #2c3e50;
+      background: rgba(31, 41, 55, 0.75);
+      backdrop-filter: blur(6px);
+      transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      background: rgba(17, 24, 39, 0.95);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      padding-top: 4px !important;
+      padding-bottom: 4px !important;
     }
 
     .navbar-brand img {
       width: 60px;
       height: 60px;
-      border-radius: 50%;   
-      object-fit: cover;    
+      border-radius: 50%;
+      object-fit: cover;
     }
 
+    .nav-link {
+      color: #fff !important;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: #d1d5db !important;
+    }
+
+    .nav-link.active {
+      color: #60a5fa !important;
+    }
+
+    /* Hero Section */
+    .contact-hero {
+      position: relative;
+      height: 40vh;
+      background: url('pics/c01.jpg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .contact-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+    }
+
+    .contact-hero h1 {
+      position: relative;
+      z-index: 1;
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    /* Contact Section */
     .contact-section {
-      padding: 80px 0;
+      padding: 60px 0;
+      background: linear-gradient(to bottom right, #ffffff, #f1f5f9);
     }
 
     .card {
       border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
       border: none;
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .card h2 {
       font-weight: bold;
-      color: #2c3e50;
+      color: #1f2937;
     }
 
     .form-control:focus {
-      border-color: #3498db;
-      box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+      border-color: #1f2937;
+      box-shadow: 0 0 0 0.2rem rgba(31, 41, 55, 0.25);
     }
 
     .btn-dark {
-      background-color: #2c3e50;
+      background-color: #1f2937;
       border: none;
       transition: 0.3s;
     }
 
     .btn-dark:hover {
-      background-color: #3498db;
+      background-color: #0f172a;
+    }
+
+    .contact-details i {
+      color: #1f2937;
+      margin-right: 8px;
     }
 
     .social-icons a {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       margin: 0 10px;
-      color: #2c3e50;
+      color: #1f2937;
       transition: color 0.3s;
     }
 
@@ -68,28 +138,41 @@
       color: #3498db;
     }
 
+    .map {
+      height: 300px;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-top: 30px;
+    }
+
     footer {
-      background: #2c3e50;
+      background: #1f2937;
       color: #fff;
-      padding: 15px 0;
+      padding: 20px 0;
       text-align: center;
-      margin-top: 50px;
     }
   </style>
 </head>
 <body>
-
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3" id="navbar">
     <div class="container">
       <a class="navbar-brand" href="index.html">
-        <img src="pics/logo-removebg-preview.png" alt="Clara Court Logo">
+        <img src="pics/logo-removebg-preview.png" alt="Clara Court Logo" />
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="bi bi-list fs-2"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto text-center">
           <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="properties.html">Properties</a></li>
           <li class="nav-item"><a class="nav-link" href="booking.html">Booking</a></li>
@@ -99,42 +182,59 @@
     </div>
   </nav>
 
+  <!-- Hero -->
+  <section class="contact-hero">
+    <h1>Contact Clara Court</h1>
+  </section>
+
   <!-- Contact Section -->
   <section class="contact-section">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="card p-4">
-            <h2 class="text-center mb-4">Get in Touch</h2>
+        <div class="col-lg-8">
+          <div class="card p-5">
+            <h2 class="text-center mb-4">We’d Love to Hear From You</h2>
             <form>
               <div class="mb-3">
-                <label class="form-label">Name</label>
-                <input type="text" class="form-control" placeholder="Your Name">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-control" placeholder="Enter your name" />
               </div>
               <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" placeholder="you@example.com">
+                <label class="form-label">Your Email</label>
+                <input type="email" class="form-control" placeholder="name@example.com" />
               </div>
               <div class="mb-3">
                 <label class="form-label">Message</label>
-                <textarea class="form-control" rows="4" placeholder="Your Message"></textarea>
+                <textarea class="form-control" rows="4" placeholder="Write your message..."></textarea>
               </div>
               <button type="submit" class="btn btn-dark w-100">Send Message</button>
             </form>
 
-            <div class="text-center mt-4">
-              <p><i class="bi bi-telephone"></i> +254 721 391 943</p>
-              <p><i class="bi bi-telephone"></i> +254 720 838 154</p>
-              <p><i class="bi bi-telephone"></i> +254 741 911 126</p>
-              <p><i class="bi bi-envelope"></i> info@claracourt.com</p>
-              <p><i class="bi bi-geo-alt"></i> Nairobi, Kenya</p>
-              <div class="social-icons">
+            <div class="contact-details text-center mt-5">
+              <p><i class="bi bi-telephone-fill"></i> +254 721 391 943</p>
+              <p><i class="bi bi-telephone-fill"></i> +254 720 838 154</p>
+              <p><i class="bi bi-telephone-fill"></i> +254 741 911 126</p>
+              <p><i class="bi bi-envelope-fill"></i> info@claracourt.com</p>
+              <p><i class="bi bi-geo-alt-fill"></i> Nairobi, Kenya</p>
+              <div class="social-icons mt-3">
                 <a href="#"><i class="bi bi-twitter-x"></i></a>
                 <a href="#"><i class="bi bi-instagram"></i></a>
                 <a href="#"><i class="bi bi-facebook"></i></a>
               </div>
             </div>
 
+            <!-- Google Map -->
+            <div class="map mt-4">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3218.4805191574405!2d39.75039177497489!3d-3.9495051960242464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18400947c87572bd%3A0xa1292d7b890e7441!2sClara%20Court!5e1!3m2!1sen!2ske!4v1756856277186!5m2!1sen!2ske"
+                width="100%"
+                height="100%"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
           </div>
         </div>
       </div>
@@ -150,5 +250,24 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Navbar Scroll and Toggle Animation -->
+  <script>
+    const navbar = document.getElementById('navbar');
+    const toggler = document.querySelector('.navbar-toggler i');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    document.querySelector('.navbar-toggler').addEventListener('click', function () {
+      toggler.classList.toggle('bi-list');
+      toggler.classList.toggle('bi-x-lg');
+    });
+  </script>
 </body>
 </html>

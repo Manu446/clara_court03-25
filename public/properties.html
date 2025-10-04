@@ -4,11 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Properties – Clara Court Homes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
       --text: #0d0d0d;
       --muted: #5b5b5b;
-      --accent: #1f2937;
+      --accent: #d4af37;
       --bg: #ffffff;
       --card: #ffffff;
       --shadow: 0 10px 25px rgba(0,0,0,.08);
@@ -17,38 +18,119 @@
     }
 
     * { box-sizing: border-box; margin:0; padding:0; }
-    body {
-      background: var(--bg); 
-      color: var(--text); 
-      font-family: "Segoe UI", Roboto, Arial, sans-serif; 
-      line-height: 1.6; 
-    }
-    h1,h2,h3 { 
-      font-family: Georgia, 'Times New Roman', Times, serif; 
-      margin:0 0 .6rem; 
-    }
+    body { background: var(--bg); color: var(--text); font-family: "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.6; }
+    h1,h2,h3 { font-family: Georgia, 'Times New Roman', Times, serif; margin:0 0 .6rem; }
     h1 { font-size: clamp(1.8rem, 2.5vw, 3rem); }
     h2 { font-size: clamp(1.2rem, 1.8vw, 1.6rem); }
     p { color: var(--muted); margin:0 0 1rem; }
 
-    .container { 
-      max-width: var(--container); 
-      margin: 0 auto; 
-      padding: 0 20px; 
-    }
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 20px; }
 
     /* Navbar */
     nav {
-      position: fixed; top:0; left:0; width:100%; z-index:1000;
-      background: rgba(17,24,39,0.7); backdrop-filter: blur(8px);
-      box-shadow: var(--shadow); padding: 14px 0;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(26, 26, 46, 0.85);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 0.8rem 0;
     }
-    nav .container { display:flex; align-items:center; justify-content:space-between; flex-wrap: wrap; }
-    .logo { display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; font-weight:700; font-size:1.1rem; }
-    .logo img { height:40px; width:40px; border-radius:50%; object-fit:cover; }
-    .nav-links { display:flex; gap:20px; flex-wrap: wrap; }
-    .nav-links a { text-decoration:none; color:#fff; font-weight:600; transition:.2s; font-size: clamp(0.9rem, 1vw, 1rem); }
-    .nav-links a:hover { color: var(--accent); }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .logo img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      transition: color 0.2s ease;
+      font-size: clamp(0.9rem, 1vw, 1rem);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger Button */
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Mobile Menu Behavior */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        background: rgba(26, 26, 46, 0.95);
+        border-radius: 0 0 12px 12px;
+        padding: 0 20px;
+      }
+
+      .nav-links.show {
+        max-height: 300px;
+        opacity: 1;
+        padding: 10px 20px 15px;
+      }
+
+      .nav-links a {
+        padding: 8px 0;
+        display: block;
+      }
+    }
 
     /* Hero */
     .hero {
@@ -58,26 +140,53 @@
       place-items: center;
       text-align: center;
       color: #fff;
-      margin-top: 72px; 
+      margin-top: 72px;
       padding: 20px;
     }
+
     .hero img {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       filter: brightness(.55);
     }
-    .hero .inner { position: relative; z-index: 2; max-width: 700px; }
+
+    .hero .inner {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+
+    .hero .inner p {
+      color: white;
+    }
 
     .btn {
-      display: inline-block; padding: 12px 22px; border-radius: 10px; background:#111827; color:#fff; text-decoration: none; font-weight:600;
-      box-shadow: var(--shadow); cursor: pointer; border: none;
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+      border: none;
+      transition: all 0.2s ease;
     }
-    .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+    }
 
     /* Properties */
     .properties { padding: 64px 0; }
     .grid { display:grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
     .card {
-      background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); overflow:hidden;
+      background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+      overflow:hidden;
       display:flex; flex-direction: column;
       transition: transform .2s ease-in-out;
     }
@@ -94,19 +203,12 @@
       display:flex; align-items:center; gap:6px;
       font-size: .9rem; background: #f5f5f5; padding: 6px 12px; border-radius: 8px;
     }
-    .amenity span { font-size: 1.2rem; }
+    .amenity i { color: var(--accent); }
 
     .card-footer { margin-top: auto; text-align: center; }
 
     footer { padding: 32px 0 56px; text-align:center; color: var(--muted); font-size: 0.9rem; }
 
-    /* Responsive tweaks */
-    @media (max-width: 768px) {
-      .hero { height: 35vh; }
-      .hero h1 { font-size: 1.8rem; }
-      nav .container { flex-direction: column; align-items: flex-start; }
-      .nav-links { margin-top: 10px; }
-    }
     @media (max-width: 480px) {
       .hero { height: 30vh; }
       .card img { height: 180px; }
@@ -121,7 +223,10 @@
         <img src="pics/logo-removebg-preview.png" alt="Clara Court Logo">
         Clara Court
       </a>
-      <div class="nav-links">
+      <button class="menu-toggle" id="menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-links" id="nav-links">
         <a href="index.html">Home</a>
         <a href="booking.html">Book</a>
         <a href="properties.html">Properties</a>
@@ -135,7 +240,7 @@
     <img src="pics/c01.jpg" alt="Properties Hero" />
     <div class="inner container">
       <h1>Explore Our Properties</h1>
-      <p>Browse our furnished holiday homes and their premium amenities.</p>
+      <p><em>Our furnished holiday homes and their premium amenities.</em></p>
     </div>
   </section>
 
@@ -150,52 +255,52 @@
             <h3>Luxury Suite</h3>
             <p>Perfect for families, this apartment blends modern interiors with coastal charm and comfort.</p>
             <div class="amenities">
-              <div class="amenity"><span>🏊‍♂️</span> Pool</div>
-              <div class="amenity"><span>📶</span> WiFi</div>
-              <div class="amenity"><span>🍽️</span> Dining Area</div>
-              <div class="amenity"><span>🛋️</span> Lounge</div>
-              <div class="amenity"><span>📺</span> Smart TV</div>
-              <div class="amenity"><span>🍳</span> Kitchen</div>
-              <div class="amenity"><span>🅿️</span> Parking</div>
+              <div class="amenity"><i class="fa-solid fa-water-ladder"></i> Pool</div>
+              <div class="amenity"><i class="fa-solid fa-wifi"></i> WiFi</div>
+              <div class="amenity"><i class="fa-solid fa-utensils"></i> Dining Area</div>
+              <div class="amenity"><i class="fa-solid fa-couch"></i> Lounge</div>
+              <div class="amenity"><i class="fa-solid fa-tv"></i> Smart TV</div>
+              <div class="amenity"><i class="fa-solid fa-kitchen-set"></i> Kitchen</div>
+              <div class="amenity"><i class="fa-solid fa-square-parking"></i> Parking</div>
             </div>
             <div class="card-footer">
-              <a href="booking.html" class="btn">Book Now</a>
+              <a href="luxury_suite.html" class="btn">View Property</a>
             </div>
           </div>
         </div>
 
         <!-- Property 2 -->
         <div class="card">
-          <img src="pics/br01.jpg" alt="Coastal Apartment" />
+          <img src="pics/br01.jpg" alt="One Bedroom Apartment" />
           <div class="card-body">
             <h3>One Bedroom Apartment</h3>
             <p>A spacious suite offering elegance, comfort, and a private balcony overlooking the gardens.</p>
             <div class="amenities">
-              <div class="amenity"><span>🛏️</span> 2 Bedrooms</div>
-              <div class="amenity"><span>📺</span> Smart TV</div>
-              <div class="amenity"><span>🍽️</span> Dining Area</div>
-              <div class="amenity"><span>🅿️</span> Parking</div>
+              <div class="amenity"><i class="fa-solid fa-bed"></i> 2 Bedrooms</div>
+              <div class="amenity"><i class="fa-solid fa-tv"></i> Smart TV</div>
+              <div class="amenity"><i class="fa-solid fa-utensils"></i> Dining Area</div>
+              <div class="amenity"><i class="fa-solid fa-square-parking"></i> Parking</div>
             </div>
             <div class="card-footer">
-              <a href="booking.html" class="btn">Book Now</a>
+              <a href="1bd_apartment.html" class="btn">View Property</a>
             </div>
           </div>
         </div>
 
         <!-- Property 3 -->
         <div class="card">
-          <img src="pics/b04.jpg" alt="Poolside Villa" />
+          <img src="pics/b04.jpg" alt="Studio Apartment" />
           <div class="card-body">
             <h3>Studio Apartment</h3>
             <p>Exclusive villa with direct pool access, private garden, and fully furnished kitchen.</p>
             <div class="amenities">
-              <div class="amenity"><span>🏊‍♂️</span> Pool Access</div>
-              <div class="amenity"><span>🍳</span> Kitchen</div>
-              <div class="amenity"><span>📶</span> WiFi</div>
-              <div class="amenity"><span>📺</span> Smart TV</div>
+              <div class="amenity"><i class="fa-solid fa-water-ladder"></i> Pool Access</div>
+              <div class="amenity"><i class="fa-solid fa-kitchen-set"></i> Kitchen</div>
+              <div class="amenity"><i class="fa-solid fa-wifi"></i> WiFi</div>
+              <div class="amenity"><i class="fa-solid fa-tv"></i> Smart TV</div>
             </div>
             <div class="card-footer">
-              <a href="booking.html" class="btn">Book Now</a>
+              <a href="studio_apartment.html" class="btn">View Property</a>
             </div>
           </div>
         </div>
@@ -206,5 +311,17 @@
   <footer>
     © 2025 Clara Court Homes. All rights reserved.
   </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    const icon = menuBtn.querySelector('i');
+
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-xmark');
+    });
+  </script>
 </body>
 </html>

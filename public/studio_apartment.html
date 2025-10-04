@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Apartment – Clara Court Apartments</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a1a2e;
+      --accent: #d4af37;
+      --light: #f9f9f9;
+      --shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--light);
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ----------------- Navbar ----------------- */
+    nav {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      padding: 16px 0;
+      transition: all 0.3s ease;
+    }
+
+    nav.shrink {
+      padding: 8px 0;
+      background: rgba(255,255,255,0.97);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      color: var(--primary);
+      transition: color 0.3s ease;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    nav.shrink .logo img {
+      width: 32px;
+      height: 32px;
+      opacity: 0.9;
+    }
+
+    nav.shrink .logo {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: var(--primary);
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 72px;
+        right: 0;
+        width: 100%;
+        background: #fff;
+        flex-direction: column;
+        text-align: center;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-10px);
+        visibility: hidden;
+        transition: all 0.4s ease;
+      }
+
+      .nav-links a {
+        padding: 14px 0;
+        display: block;
+      }
+
+      .nav-links.active {
+        max-height: 300px;
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+      }
+    }
+
+    /* ----------------- Hero ----------------- */
+    .hero {
+      position: relative;
+      background: url('images/studio-hero.jpg') center/cover no-repeat;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      margin-top: 72px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .hero h1 {
+      position: relative;
+      font-size: 3rem;
+      z-index: 1;
+    }
+
+    /* ----------------- Content ----------------- */
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform .3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .amenities {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .amenity {
+      background: white;
+      padding: .8rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.1);
+      display: flex;
+      align-items: center;
+    }
+
+    .amenity i {
+      color: var(--accent);
+      margin-right: 8px;
+    }
+
+    .booking-panel {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+      position: sticky;
+      top: 100px;
+    }
+
+    footer {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="pics/logo-removebg-preview.png" alt="Logo">
+        Clara Court
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="properties.html">Properties</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Studio Apartment</h1>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container my-5">
+    <div class="row g-5">
+      <!-- Left: Details -->
+      <div class="col-lg-8">
+        <h2>About this Studio</h2>
+        <p>
+          Our Studio Apartment offers a chic and affordable living experience. Perfect for solo travelers, 
+          students, or professionals on short stays, this compact space is thoughtfully designed with 
+          modern interiors, a cozy sleeping area, a fully equipped kitchenette, and a comfortable workspace. 
+          Enjoy convenience without compromise in a stylish and functional setting.
+        </p>
+
+        <!-- Gallery -->
+        <h3>Gallery</h3>
+        <div class="row gallery g-3">
+          <div class="col-md-4"><img src="images/studio1.jpg" alt="Studio living"></div>
+          <div class="col-md-4"><img src="images/studio2.jpg" alt="Sleeping area"></div>
+          <div class="col-md-4"><img src="images/studio3.jpg" alt="Kitchenette"></div>
+        </div>
+
+        <!-- Amenities -->
+        <h3 class="mt-4">Amenities</h3>
+        <div class="amenities">
+          <div class="amenity"><i class="fas fa-wifi"></i> Free Wi-Fi</div>
+          <div class="amenity"><i class="fas fa-utensils"></i> Kitchenette</div>
+          <div class="amenity"><i class="fas fa-laptop"></i> Workspace</div>
+          <div class="amenity"><i class="fas fa-shower"></i> Bathroom</div>
+          <div class="amenity"><i class="fas fa-tshirt"></i> Laundry Access</div>
+          <div class="amenity"><i class="fas fa-snowflake"></i> Air Conditioning</div>
+        </div>
+
+        <!-- Reviews -->
+        <h3 class="mt-5">Guest Reviews</h3>
+        <blockquote class="blockquote">
+          <p>“Perfect for a business trip. Compact but had everything I needed.”</p>
+          <footer class="blockquote-footer">Daniel</footer>
+        </blockquote>
+        <blockquote class="blockquote">
+          <p>“Affordable, cozy, and in a great location. Loved my stay!”</p>
+          <footer class="blockquote-footer">Emily</footer>
+        </blockquote>
+      </div>
+
+      <!-- Right: Booking -->
+      <div class="col-lg-4">
+        <div class="booking-panel">
+          <h4>$60 / night</h4>
+          <form id="bookingForm">
+            <div class="mb-3">
+              <label for="checkin" class="form-label">Check-in</label>
+              <input type="date" class="form-control" id="checkin" required>
+            </div>
+            <div class="mb-3">
+              <label for="checkout" class="form-label">Check-out</label>
+              <input type="date" class="form-control" id="checkout" required>
+            </div>
+            <div class="mb-3">
+              <label for="guests" class="form-label">Guests</label>
+              <input type="number" class="form-control" id="guests" min="1" value="1">
+            </div>
+            <button type="submit" class="btn btn-dark w-100">Book Now</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Luxury Stays Apartments | All Rights Reserved</p>
+  </footer>
+
+  <!-- Navbar Script -->
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    const navbar = document.querySelector('nav');
+
+    // Toggle mobile menu
+    menuToggle.addEventListener('click', () => {
+      const isActive = navLinks.classList.toggle('active');
+      menuToggle.innerHTML = isActive
+        ? '<i class="fas fa-times"></i>'
+        : '<i class="fas fa-bars"></i>';
+    });
+
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+      });
+    });
+
+    // Shrink navbar on scroll
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        navbar.classList.add('shrink');
+      } else {
+        navbar.classList.remove('shrink');
+      }
+    });
+
+    // Redirect on booking
+    document.getElementById('bookingForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const checkin = document.getElementById('checkin').value;
+      const checkout = document.getElementById('checkout').value;
+      const guests = document.getElementById('guests').value;
+
+      // Redirect with query params
+      window.location.href = `payment.html?checkin=${checkin}&checkout=${checkout}&guests=${guests}`;
+    });
+  </script>
+</body>
+</html>

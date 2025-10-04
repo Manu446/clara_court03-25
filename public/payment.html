@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Payment – Clara Court Homes</title>
+
+  <!-- Bootstrap Icons (for menu icon) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
   <style>
     :root {
       --text: #0d0d0d;
@@ -16,63 +20,97 @@
       --container: 1100px;
     }
 
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; scroll-behavior: smooth; }
     body { margin:0; padding:0; background: var(--bg); color: var(--text); font-family: "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.6; }
     h1,h2 { font-family: Georgia, 'Times New Roman', Times, serif; margin:0 0 .6rem; }
     h1 { font-size: clamp(2rem, 2.6rem + 1.2vw, 3rem); }
     h2 { font-size: 1.6rem; margin-bottom: 1rem; }
     p { color: var(--muted); margin:0 0 1rem; }
-
     .container { max-width: var(--container); margin: 0 auto; padding: 0 20px; }
 
     /* Navbar */
-    nav {
-      position: fixed; top:0; left:0; width:100%; z-index:1000;
-      background: rgba(17,24,39,0.7); backdrop-filter: blur(8px);
-      box-shadow: var(--shadow); padding: 14px 0;
+    .navbar {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      background: rgba(17, 24, 39, 0.85);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
     }
-    nav .container { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; }
-    .logo { display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-weight:700; font-size:1.1rem; }
-    .logo img { height:40px; width:40px; border-radius:50%; object-fit:cover; }
-    .nav-links { display:flex; gap:24px; flex-wrap:wrap; }
-    .nav-links a { text-decoration:none; color:var(--text); font-weight:600; transition:.2s; }
-    .nav-links a:hover { color: var(--accent); }
 
-    /* Hero */
-    .hero {
-      position: relative;
-      height: 50vh;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      color: #fff;
-      margin-top: 72px;
+    .navbar.scrolled {
+      background: #111827;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
     }
-    .hero img {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      filter: brightness(.55);
-    }
-    .hero .inner { position: relative; z-index: 2; }
 
-    .btn {
-      display: inline-block; padding: 12px 22px; border-radius: 10px; background:#111827; color:#fff; text-decoration: none; font-weight:600;
-      box-shadow: var(--shadow); cursor: pointer; border: none;
+    .navbar .container {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
     }
-    .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+
+    .navbar-brand {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: #fff; font-weight: 700; font-size: 1.1rem;
+    }
+
+    .navbar-brand img {
+      height: 45px; width: 45px; border-radius: 50%; object-fit: cover;
+    }
+
+    .nav-links {
+      display: flex; gap: 24px; align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none; color: #fff; font-weight: 500;
+      position: relative; transition: color 0.3s ease;
+    }
+
+    .nav-links a::after {
+      content: ""; position: absolute; left: 0; bottom: -4px;
+      width: 0%; height: 2px; background: #fff;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after, .nav-links a.active::after {
+      width: 100%;
+    }
+
+    /* Hamburger */
+    .menu-toggle {
+      display: none; font-size: 1.8rem; color: #fff;
+      cursor: pointer; transition: transform 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        position: absolute; top: 100%; right: 0;
+        background: rgba(17, 24, 39, 0.95);
+        backdrop-filter: blur(10px);
+        flex-direction: column; width: 100%;
+        max-height: 0; overflow: hidden;
+        transition: max-height 0.4s ease;
+      }
+      .nav-links.open { max-height: 300px; }
+      .nav-links a { padding: 12px 20px; width: 100%; text-align: center; }
+    }
 
     /* Payment Form */
-    .payment { padding: 64px 0; }
+    .payment { padding: 100px 0 64px; }
     .form-card {
-      background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 32px;
+      background: var(--card); border-radius: var(--radius);
+      box-shadow: var(--shadow); padding: 32px;
       max-width: 600px; margin: auto;
     }
     .form-group { margin-bottom: 20px; }
     label { display:block; font-weight:600; margin-bottom: 6px; }
     input, select {
-      width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; font-size: 1rem;
+      width: 100%; padding: 12px; border-radius: 10px;
+      border: 1px solid #ddd; font-size: 1rem;
     }
     input:focus, select:focus {
-      outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(31,41,55,.1);
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(31,41,55,.1);
     }
 
     .hidden { display: none; }
@@ -95,35 +133,39 @@
       box-shadow: var(--shadow);
     }
 
+    .btn {
+      display: inline-block; padding: 12px 22px;
+      border-radius: 10px; background:#111827;
+      color:#fff; text-decoration: none; font-weight:600;
+      box-shadow: var(--shadow); cursor: pointer; border: none;
+    }
+
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+
     footer { padding: 32px 0 56px; text-align:center; color: var(--muted); }
   </style>
 </head>
 <body>
+
   <!-- Navbar -->
-  <nav>
+  <nav class="navbar">
     <div class="container">
-      <a href="index.html" class="logo">
+      <a href="index.html" class="navbar-brand">
         <img src="pics/logo-removebg-preview.png" alt="Clara Court Logo">
         Clara Court
       </a>
-      <div class="nav-links">
+
+      <i class="bi bi-list menu-toggle" id="menuToggle"></i>
+
+      <div class="nav-links" id="navLinks">
         <a href="index.html">Home</a>
         <a href="properties.html">Properties</a>
         <a href="booking.html">Book</a>
-        <a href="payment.html">Payment</a>
+        <a href="payment.html" class="active">Payment</a>
         <a href="contact.html">Contact</a>
       </div>
     </div>
   </nav>
-
-  <!-- Hero -->
-  <!-- <section class="hero">
-    <img src="pics/logo-removebg-preview.png" alt="Payment Hero" />
-    <div class="inner container">
-      <h1>Secure Payment</h1>
-      <p>Complete your booking safely with our trusted payment methods.</p>
-    </div>
-  </section> -->
 
   <!-- Payment Section -->
   <section class="payment">
@@ -133,7 +175,7 @@
       <div class="form-card">
         <h2>Payment Details</h2>
         <form id="paymentForm">
-          <!-- Select Method -->
+          <!-- Payment Method -->
           <div class="form-group">
             <label for="method">Payment Method</label>
             <select id="method" name="method" required>
@@ -148,29 +190,29 @@
           <div id="cardFields" class="hidden">
             <div class="form-group">
               <label for="card-name">Cardholder Name</label>
-              <input type="text" id="card-name" name="card-name" placeholder="Full Name" />
+              <input type="text" id="card-name" placeholder="Full Name" />
             </div>
             <div class="form-group">
               <label for="card-number">Card Number</label>
-              <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" />
+              <input type="text" id="card-number" placeholder="1234 5678 9012 3456" />
             </div>
             <div class="form-group" style="display:flex; gap:16px; flex-wrap:wrap;">
               <div style="flex:1; min-width:120px;">
                 <label for="expiry">Expiry Date</label>
-                <input type="text" id="expiry" name="expiry" placeholder="MM/YY" />
+                <input type="text" id="expiry" placeholder="MM/YY" />
               </div>
               <div style="flex:1; min-width:120px;">
                 <label for="cvv">CVV</label>
-                <input type="password" id="cvv" name="cvv" placeholder="123" />
+                <input type="password" id="cvv" placeholder="123" />
               </div>
             </div>
           </div>
 
-          <!-- Mobile Money Fields -->
+          <!-- Mobile Money -->
           <div id="mobileFields" class="hidden">
             <div class="form-group">
               <label for="mobile-network">Select Mobile Network</label>
-              <select id="mobile-network" name="mobile-network">
+              <select id="mobile-network">
                 <option value="">-- Choose network --</option>
                 <option value="mpesa">M-Pesa</option>
                 <option value="airtel">Airtel Money</option>
@@ -179,27 +221,26 @@
             </div>
             <div class="form-group">
               <label for="mobile-number">Mobile Number</label>
-              <input type="text" id="mobile-number" name="mobile-number" placeholder="+2547..." />
+              <input type="text" id="mobile-number" placeholder="+2547..." />
             </div>
 
             <div id="instructionsBox" class="instructions hidden"></div>
           </div>
 
-          <!-- PayPal Fields -->
+          <!-- PayPal -->
           <div id="paypalFields" class="hidden">
             <div class="form-group">
               <label for="paypal-email">PayPal Email</label>
-              <input type="email" id="paypal-email" name="paypal-email" placeholder="your@email.com" />
+              <input type="email" id="paypal-email" placeholder="your@email.com" />
             </div>
           </div>
 
           <!-- Amount -->
           <div class="form-group">
             <label for="amount">Amount (Ksh)</label>
-            <input type="text" id="amount" name="amount" readonly />
+            <input type="text" id="amount" readonly />
           </div>
 
-          <!-- Submit -->
           <div style="text-align:center; margin-top: 24px;">
             <button class="btn" type="submit">Pay Now</button>
           </div>
@@ -213,6 +254,21 @@
   </footer>
 
   <script>
+    // Navbar behavior
+    const nav = document.querySelector(".navbar");
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("scrolled", window.scrollY > 20);
+    });
+
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+      menuToggle.classList.toggle("bi-x");
+    });
+
+    // Payment logic
     const methodSelect = document.getElementById("method");
     const cardFields = document.getElementById("cardFields");
     const mobileFields = document.getElementById("mobileFields");
@@ -222,38 +278,23 @@
     const bookingSummary = document.getElementById("booking-summary");
     const amountInput = document.getElementById("amount");
 
-    // Show/hide payment fields
-    methodSelect.addEventListener("change", function () {
+    methodSelect.addEventListener("change", () => {
       cardFields.classList.add("hidden");
       mobileFields.classList.add("hidden");
       paypalFields.classList.add("hidden");
-
-      if (this.value === "card") {
-        cardFields.classList.remove("hidden");
-      } else if (this.value === "mobile") {
-        mobileFields.classList.remove("hidden");
-      } else if (this.value === "paypal") {
-        paypalFields.classList.remove("hidden");
-      }
+      if (methodSelect.value === "card") cardFields.classList.remove("hidden");
+      if (methodSelect.value === "mobile") mobileFields.classList.remove("hidden");
+      if (methodSelect.value === "paypal") paypalFields.classList.remove("hidden");
     });
 
-    // Show instructions for mobile networks
-    mobileNetwork.addEventListener("change", function () {
-      instructionsBox.classList.add("hidden");
+    mobileNetwork.addEventListener("change", () => {
+      const network = mobileNetwork.value;
       let msg = "";
-
-      if (this.value === "mpesa") {
-        msg = "You will receive an M-Pesa STK push on your phone. Enter your PIN to complete the transaction.";
-      } else if (this.value === "airtel") {
-        msg = "You will receive an Airtel Money prompt. Approve the request to confirm payment.";
-      } else if (this.value === "tkash") {
-        msg = "You will receive a T-Kash payment request. Confirm on your phone to finalize the payment.";
-      }
-
-      if (msg) {
-        instructionsBox.textContent = msg;
-        instructionsBox.classList.remove("hidden");
-      }
+      if (network === "mpesa") msg = "You will receive an M-Pesa STK push. Enter your PIN to complete payment.";
+      if (network === "airtel") msg = "You will receive an Airtel Money prompt. Approve the request.";
+      if (network === "tkash") msg = "You will receive a T-Kash request. Confirm to finalize payment.";
+      instructionsBox.textContent = msg;
+      instructionsBox.classList.toggle("hidden", !msg);
     });
 
     // Load booking data
@@ -268,7 +309,6 @@
         <p><strong>Guests:</strong> ${bookingData.guests}</p>
         <p><strong>Total:</strong> Ksh ${bookingData.total}</p>
       `;
-
       amountInput.value = bookingData.total;
     }
   </script>

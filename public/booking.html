@@ -47,6 +47,7 @@
     }
     .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.55); }
     .hero .inner { position: relative; z-index: 2; padding: 0 15px; }
+    .hero .inner p {  color: white; }
 
     .btn {
       display: inline-block; padding: 12px 22px; border-radius: 10px; background:#111827; color:#fff; text-decoration: none; font-weight:600;
@@ -78,6 +79,15 @@
       .form-card { padding: 20px; }
       nav .container { flex-direction: column; gap:10px; }
     }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+      animation: fadeIn 0.4s ease forwards;
+    }
+
   </style>
 </head>
 <body>
@@ -100,7 +110,7 @@
     <img src="pics/gz01.jpg" alt="Booking Hero" />
     <div class="inner container">
       <h1>Book Your Stay</h1>
-      <p>Secure your furnished luxury holiday home in just a few clicks.</p>
+      <p><em>Secure your furnished luxury holiday home in just a few clicks.</em></p>
     </div>
   </section>
 
@@ -108,6 +118,7 @@
     <div class="container">
       <div class="form-card">
         <h2>Booking Details</h2>
+        <div id="form-error" style="display:none; color: red; margin-bottom: 15px; font-weight: 600;"></div>
         <form id="bookingForm">
           <div class="form-group">
             <label for="property">Select Property</label>
@@ -173,11 +184,24 @@
     const totalDisplay = document.getElementById("total-display");
     const bookingForm = document.getElementById("bookingForm");
 
+    // 1. Restrict to today and 6 months ahead
+    const today = new Date();
+    const sixMonthsLater = new Date();
+    sixMonthsLater.setMonth(today.getMonth() + 6);
+
+    const formatDate = (date) => date.toISOString().split("T")[0];
+
+    checkinInput.min = formatDate(today);
+    checkinInput.max = formatDate(sixMonthsLater);
+    checkoutInput.min = formatDate(today);
+    checkoutInput.max = formatDate(sixMonthsLater);
+    
+    // 2. Dynamic price calculation
     function calculateTotal() {
-      const pricePerDay = parseInt(propertySelect.value) || 0;
-      const rooms = parseInt(roomsSelect.value) || 0;
-      const checkin = new Date(checkinInput.value);
-      const checkout = new Date(checkoutInput.value);
+    const pricePerDay = parseInt(propertySelect.value) || 0;
+    const rooms = parseInt(roomsSelect.value) || 0;
+    const checkin = new Date(checkinInput.value);
+    const checkout = new Date(checkoutInput.value);
 
       let days = 0;
       if (checkinInput.value && checkoutInput.value && checkout > checkin) {
@@ -203,9 +227,30 @@
     roomsSelect.addEventListener("change", calculateTotal);
     checkinInput.addEventListener("change", calculateTotal);
     checkoutInput.addEventListener("change", calculateTotal);
-
-    bookingForm.addEventListener("submit", function(e) {
+    
+    // 3. Submit handler with visual validation
+    bookingForm.addEventListener("submit", function (e) {
       e.preventDefault();
+
+      const checkinDate = new Date(checkinInput.value);
+      const checkoutDate = new Date(checkoutInput.value);
+      const now = new Date();
+      now.setHours(0, 0, 0, 0); // normalize time
+
+      const errorMsg = document.getElementById("form-error");
+      errorMsg.style.display = "none";
+      
+      if (checkinDate < now || checkoutDate < now) {
+        showError("Dates must start from today.");
+        return;
+      }
+      
+      if (checkoutDate <= checkinDate) {
+        showError("Check-out must be after check-in.");
+        return;
+      }
+      
+      // Save booking data
       const bookingData = {
         property: propertySelect.options[propertySelect.selectedIndex].text,
         pricePerDay: parseInt(propertySelect.value) || 0,
@@ -215,9 +260,15 @@
         guests: document.getElementById("guests").value,
         total: totalDisplay.textContent.replace("Total: Ksh ", "")
       };
+      
       localStorage.setItem("bookingData", JSON.stringify(bookingData));
       window.location.href = "payment.html";
     });
-  </script>
-</body>
-</html>
+    
+    function showError(msg) {
+      const errorMsg = document.getElementById("form-error");
+      errorMsg.textContent = msg;
+      errorMsg.style.display = "block";
+      errorMsg.classList.add("fade-in");
+    }
+</script>
