@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Properties – Clara Court Homes</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --text: #0d0d0d;
       --muted: #5b5b5b;
-      --accent: #d4af37;
+      --accent: #c5a30a;
       --bg: #ffffff;
       --card: #ffffff;
       --shadow: 0 10px 25px rgba(0,0,0,.08);
@@ -18,10 +20,19 @@
     }
 
     * { box-sizing: border-box; margin:0; padding:0; }
-    body { background: var(--bg); color: var(--text); font-family: "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.6; }
-    h1,h2,h3 { font-family: Georgia, 'Times New Roman', Times, serif; margin:0 0 .6rem; }
-    h1 { font-size: clamp(1.8rem, 2.5vw, 3rem); }
-    h2 { font-size: clamp(1.2rem, 1.8vw, 1.6rem); }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Poppins", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1,h2,h3 {
+      font-family: "Playfair Display", serif;
+      margin:0 0 .6rem;
+    }
+    h1 { font-size: clamp(2rem, 3vw, 3rem); letter-spacing: 0.5px; }
+    h2 { font-size: clamp(1.4rem, 1.8vw, 1.8rem); }
     p { color: var(--muted); margin:0 0 1rem; }
 
     .container { max-width: var(--container); margin: 0 auto; padding: 0 20px; }
@@ -32,10 +43,16 @@
       top: 0; left: 0;
       width: 100%;
       z-index: 1000;
-      background: rgba(26, 26, 46, 0.85);
+      background: rgba(26, 26, 46, 0.6);
       backdrop-filter: blur(10px);
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       padding: 0.8rem 0;
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(10, 10, 25, 0.95);
+      padding: 0.5rem 0;
     }
 
     nav .container {
@@ -53,18 +70,21 @@
       color: #fff;
       font-weight: 700;
       font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .logo img {
-      height: 40px;
-      width: 40px;
+      height: 46px;
+      width: 46px;
       border-radius: 50%;
       object-fit: cover;
+      border: 2px solid var(--accent);
     }
 
     .nav-links {
       display: flex;
-      gap: 24px;
+      gap: 26px;
       flex-wrap: wrap;
       transition: max-height 0.3s ease, opacity 0.3s ease;
     }
@@ -72,8 +92,8 @@
     .nav-links a {
       text-decoration: none;
       color: #fff;
-      font-weight: 600;
-      transition: color 0.2s ease;
+      font-weight: 500;
+      transition: color 0.3s ease;
       font-size: clamp(0.9rem, 1vw, 1rem);
       position: relative;
     }
@@ -103,7 +123,7 @@
       cursor: pointer;
     }
 
-    /* Mobile Menu Behavior */
+    /* Mobile Menu */
     @media (max-width: 768px) {
       .menu-toggle {
         display: block;
@@ -115,7 +135,7 @@
         overflow: hidden;
         max-height: 0;
         opacity: 0;
-        background: rgba(26, 26, 46, 0.95);
+        background: rgba(20, 20, 40, 0.95);
         border-radius: 0 0 12px 12px;
         padding: 0 20px;
       }
@@ -135,13 +155,14 @@
     /* Hero */
     .hero {
       position: relative;
-      height: 45vh;
+      height: 60vh;
       display: grid;
       place-items: center;
       text-align: center;
       color: #fff;
       margin-top: 72px;
       padding: 20px;
+      overflow: hidden;
     }
 
     .hero img {
@@ -150,17 +171,31 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(.55);
+      filter: brightness(.5);
+      transform: scale(1.1);
+      transition: transform 10s ease;
+    }
+
+    .hero:hover img {
+      transform: scale(1.15);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.7));
     }
 
     .hero .inner {
       position: relative;
       z-index: 2;
-      max-width: 700px;
+      animation: fadeInUp 1.2s ease;
     }
 
-    .hero .inner p {
-      color: white;
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .btn {
@@ -173,51 +208,118 @@
       font-weight: 600;
       box-shadow: var(--shadow);
       border: none;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
     }
 
     .btn:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.1);
+      transform: translateY(-2px);
+      filter: brightness(1.15);
     }
 
     /* Properties */
-    .properties { padding: 64px 0; }
-    .grid { display:grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-    .card {
-      background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
-      overflow:hidden;
-      display:flex; flex-direction: column;
-      transition: transform .2s ease-in-out;
+    .properties {
+      padding: 80px 0;
+      background: linear-gradient(to bottom right, #fff, #f7f7f9);
     }
-    .card:hover { transform: translateY(-4px); }
-    .card img { width:100%; height: 220px; object-fit: cover; }
-    .card-body { padding: 20px; flex:1; display:flex; flex-direction: column; }
-    .card-body h3 { font-size: 1.25rem; margin-bottom: .5rem; }
-    .card-body p { flex:1; }
+
+    .grid {
+      display:grid;
+      gap: 40px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      display:flex;
+      flex-direction: column;
+      transition: all .4s ease;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: slideIn 1s forwards;
+    }
+
+    @keyframes slideIn {
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .card img {
+      width:100%;
+      height: 230px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.07);
+    }
+
+    .card-body {
+      padding: 24px;
+      flex:1;
+      display:flex;
+      flex-direction: column;
+    }
+
+    .card-body h3 {
+      font-size: 1.4rem;
+      margin-bottom: .5rem;
+      color: #111;
+    }
+
+    .card-body p {
+      flex:1;
+      color: #444;
+    }
 
     .amenities {
-      display:flex; flex-wrap: wrap; gap:10px; margin: 12px 0;
+      display:flex; flex-wrap: wrap; gap:10px; margin: 16px 0;
     }
+
     .amenity {
       display:flex; align-items:center; gap:6px;
-      font-size: .9rem; background: #f5f5f5; padding: 6px 12px; border-radius: 8px;
+      font-size: .9rem;
+      background: #f8f8f8;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
     }
+
     .amenity i { color: var(--accent); }
+    .amenity:hover {
+      background: #fff2c1;
+    }
 
-    .card-footer { margin-top: auto; text-align: center; }
+    .card-footer {
+      margin-top: auto;
+      text-align: center;
+    }
 
-    footer { padding: 32px 0 56px; text-align:center; color: var(--muted); font-size: 0.9rem; }
+    footer {
+      padding: 40px 0;
+      text-align:center;
+      color: #eee;
+      background: linear-gradient(135deg, #1a1a2e, #111122);
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+
+    footer span {
+      color: var(--accent);
+      font-weight: 600;
+    }
 
     @media (max-width: 480px) {
-      .hero { height: 30vh; }
+      .hero { height: 40vh; }
       .card img { height: 180px; }
     }
   </style>
 </head>
 <body>
   <!-- Navbar -->
-  <nav>
+  <nav id="navbar">
     <div class="container">
       <a href="index.html" class="logo">
         <img src="pics/logo-removebg-preview.png" alt="Clara Court Logo">
@@ -240,7 +342,7 @@
     <img src="pics/c01.jpg" alt="Properties Hero" />
     <div class="inner container">
       <h1>Explore Our Properties</h1>
-      <p><em>Our furnished holiday homes and their premium amenities.</em></p>
+      <p><em>Discover comfort, elegance, and modern design — all in one place.</em></p>
     </div>
   </section>
 
@@ -253,11 +355,11 @@
           <img src="pics/b01.jpg" alt="Luxury Suite" />
           <div class="card-body">
             <h3>Luxury Suite</h3>
-            <p>Perfect for families, this apartment blends modern interiors with coastal charm and comfort.</p>
+            <p>Perfect for families, this apartment blends modern interiors with coastal charm and premium comfort.</p>
             <div class="amenities">
               <div class="amenity"><i class="fa-solid fa-water-ladder"></i> Pool</div>
               <div class="amenity"><i class="fa-solid fa-wifi"></i> WiFi</div>
-              <div class="amenity"><i class="fa-solid fa-utensils"></i> Dining Area</div>
+              <div class="amenity"><i class="fa-solid fa-utensils"></i> Dining</div>
               <div class="amenity"><i class="fa-solid fa-couch"></i> Lounge</div>
               <div class="amenity"><i class="fa-solid fa-tv"></i> Smart TV</div>
               <div class="amenity"><i class="fa-solid fa-kitchen-set"></i> Kitchen</div>
@@ -274,11 +376,11 @@
           <img src="pics/br01.jpg" alt="One Bedroom Apartment" />
           <div class="card-body">
             <h3>One Bedroom Apartment</h3>
-            <p>A spacious suite offering elegance, comfort, and a private balcony overlooking the gardens.</p>
+            <p>Spacious and elegant, offering privacy, comfort, and a private balcony overlooking serene gardens.</p>
             <div class="amenities">
-              <div class="amenity"><i class="fa-solid fa-bed"></i> 2 Bedrooms</div>
+              <div class="amenity"><i class="fa-solid fa-bed"></i> 2 Beds</div>
               <div class="amenity"><i class="fa-solid fa-tv"></i> Smart TV</div>
-              <div class="amenity"><i class="fa-solid fa-utensils"></i> Dining Area</div>
+              <div class="amenity"><i class="fa-solid fa-utensils"></i> Dining</div>
               <div class="amenity"><i class="fa-solid fa-square-parking"></i> Parking</div>
             </div>
             <div class="card-footer">
@@ -292,7 +394,7 @@
           <img src="pics/b04.jpg" alt="Studio Apartment" />
           <div class="card-body">
             <h3>Studio Apartment</h3>
-            <p>Exclusive villa with direct pool access, private garden, and fully furnished kitchen.</p>
+            <p>A cozy, exclusive suite featuring direct pool access, a furnished kitchen, and tranquil ambiance.</p>
             <div class="amenities">
               <div class="amenity"><i class="fa-solid fa-water-ladder"></i> Pool Access</div>
               <div class="amenity"><i class="fa-solid fa-kitchen-set"></i> Kitchen</div>
@@ -309,18 +411,24 @@
   </section>
 
   <footer>
-    © 2025 Clara Court Homes. All rights reserved.
+    © <span>2025</span> Clara Court Homes. All rights reserved.
   </footer>
 
   <script>
     const menuBtn = document.getElementById('menu-btn');
     const navLinks = document.getElementById('nav-links');
     const icon = menuBtn.querySelector('i');
+    const navbar = document.getElementById('navbar');
 
     menuBtn.addEventListener('click', () => {
       navLinks.classList.toggle('show');
       icon.classList.toggle('fa-bars');
       icon.classList.toggle('fa-xmark');
+    });
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
     });
   </script>
 </body>
