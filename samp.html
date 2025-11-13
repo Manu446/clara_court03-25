@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clara Court Homes – Luxury Holiday Homes in Mombasa</title>
+
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="Luxury furnished holiday homes in Mombasa. Clara Court offers elegant, fully serviced apartments for your perfect coastal getaway.">
+  <meta property="og:title" content="Clara Court Homes – Luxury Holiday Homes in Mombasa">
+  <meta property="og:description" content="Experience comfort and elegance at Clara Court Homes, your coastal retreat in Mombasa.">
+  <meta property="og:image" content="pics/c02.jpeg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://claracourthomes.com">
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <link rel="preload" as="image" href="pics/c02.jpeg">
+
+  <style>
+    :root {
+      --text: #0d0d0d;
+      --muted: #5b5b5b;
+      --accent: #1f2937;
+      --bg: #ffffff;
+      --card: #ffffff;
+      --shadow: 0 10px 25px rgba(0,0,0,.08);
+      --radius: 20px;
+      --container: 1100px;
+    }
+
+    * { box-sizing: border-box; margin:0; padding:0; }
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    h1,h2,h3 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: .6rem;
+      line-height:1.2;
+    }
+    h1 { font-size: clamp(2rem, 2.6rem + 1.2vw, 4rem); }
+    h2 { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2.2rem); }
+    h3 { font-size: 1.25rem; }
+    p { color: var(--muted); margin-bottom: 1rem; }
+    a { color: inherit; text-decoration: none; }
+
+    .container { max-width: var(--container); margin: 0 auto; padding: 0 20px; }
+
+    /* ===============================
+       GLASSY NAVBAR
+    =================================*/
+    .navbar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      z-index: 1000;
+      transition: all 0.4s ease;
+    }
+    .navbar.scrolled {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(20px) saturate(200%);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+      padding: 10px 24px;
+    }
+
+    /* Navbar brand shimmer */
+    .navbar .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 1.1rem; color: #fff;
+      background: linear-gradient(90deg, #fff, #e2e8f0, #fff);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 6s linear infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    .navbar .brand img {
+      width: 42px; height: 42px; border-radius: 50%; object-fit: cover;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .nav-links {
+      display: flex; gap: 24px;
+      transition: all 0.3s ease;
+    }
+    .nav-links a {
+      color: #fff; font-weight: 500; position: relative;
+    }
+    .nav-links a::after {
+      content:"";
+      position:absolute;
+      bottom:-4px; left:0;
+      width:0%; height:2px;
+      background:#fff;
+      transition:width .3s ease;
+    }
+    .nav-links a:hover::after { width:100%; }
+
+    .menu-toggle {
+      display: none; font-size: 26px; color: #fff; cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links {
+        position: absolute; top: 60px; right: 20px;
+        background: rgba(17, 24, 39, 0.95);
+        border-radius: 12px;
+        flex-direction: column;
+        gap: 14px; padding: 20px;
+        display: none;
+        transform: translateY(-10px);
+        opacity: 0; pointer-events: none;
+      }
+      .nav-links.active {
+        display: flex; opacity: 1; transform: translateY(0);
+        pointer-events: auto;
+      }
+    }
+
+    /* ===============================
+       HERO SECTION WITH MOTION
+    =================================*/
+    .hero {
+      position: relative;
+      min-height: 70vh;
+      display: grid; place-items: center;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+      padding: 80px 20px;
+      background: url('pics/c02.jpeg') center/cover fixed no-repeat;
+      animation: zoomHero 20s ease-in-out infinite alternate;
+    }
+    @keyframes zoomHero {
+      from { background-size: 100%; }
+      to { background-size: 110%; }
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.75));
+    }
+    .hero .inner {
+      position: relative; z-index: 2; padding: 24px;
+      animation: fadeUp 1s ease;
+    }
+    .hero .inner p { color: #f3f4f6; }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1f2937, #374151);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+      transition: all .3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content:'';
+      position:absolute;
+      top:0; left:-100%;
+      width:100%; height:100%;
+      background:rgba(255,255,255,0.2);
+      transition:left .5s ease;
+    }
+    .btn:hover::before { left:100%; }
+    .btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      background: linear-gradient(135deg, #111827, #1f2937);
+    }
+
+    /* Keyframes */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* Reveal Animations */
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* Sections */
+    .about, .featured, .amenities, .location { padding: 100px 0; }
+    /* About */
+.about { padding:100px 0; display:grid; place-items:center; }
+.about-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:32px; align-items:center; }
+.about .img-wrap { border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); transition:transform .6s ease; }
+.about .img-wrap img { width:100%; height:auto; max-height:360px; object-fit:cover; }
+.reveal.active .img-wrap img { transform: translateY(-20px); }
+
+    /* Cards Animations */
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      animation: fadeUp 1s ease both;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    }
+    /* Featured Cards */
+.featured { padding:80px 0; background:#f9fafb; }
+.cards { display:grid; gap:24px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
+.card {
+  background: var(--card);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+  transition: transform .4s ease, box-shadow .4s ease;
+  opacity:0; transform:translateY(30px);
+}
+.card img { width:100%; height:220px; object-fit:cover; transition:transform .5s ease; }
+.card:hover { transform:translateY(-8px) scale(1.02); box-shadow:0 20px 40px rgba(0,0,0,0.12); }
+.card:hover img { transform:scale(1.05); }
+.cards .card:nth-child(1){animation:fadeUp 0.4s forwards 0.2s;}
+.cards .card:nth-child(2){animation:fadeUp 0.4s forwards 0.4s;}
+.cards .card:nth-child(3){animation:fadeUp 0.4s forwards 0.6s;}
+
+
+    /* Floating CTA */
+    .floating-cta {
+      position: fixed; bottom: 20px; right: 20px;
+      background: #1f2937; color: #fff;
+      padding: 12px 18px; border-radius: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 999;
+      transition: all .3s;
+      font-weight: 600;
+      animation: pulse 3s infinite;
+    }
+    .floating-cta:hover { transform: translateY(-4px); background: #111827; }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(31,41,55,0.4); }
+      50% { box-shadow: 0 0 0 10px rgba(31,41,55,0); }
+    }
+
+    @media (max-width:980px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width:640px) {
+      .hero { min-height: 60vh; padding: 60px 20px; background-attachment: scroll; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="brand">
+      <img src="pics/logo-removebg-preview.png" alt="Clara Court Homes Logo">
+      Clara Court
+    </a>
+    <div class="menu-toggle" id="menu-toggle" aria-label="Toggle menu"><i class="fas fa-bars"></i></div>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="properties.html">Properties</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="inner container">
+      <h1>Furnished Luxury<br>Holiday Homes in Mombasa</h1>
+      <p><em>Experience comfort, elegance, and convenience in the heart of the coast.</em></p>
+      <a class="btn" href="properties.html">View Properties</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about reveal">
+    <div class="container about-grid">
+      <div>
+        <h2>About Us</h2>
+        <p>Clara Court Homes offers fully furnished holiday homes designed for relaxation, privacy, and luxury. Located in serene parts of Mombasa, our properties combine modern comfort with coastal charm, making your stay unforgettable.</p>
+        <p>Whether you're here for a weekend getaway or a long retreat, we provide amenities that make you feel right at home.</p>
+      </div>
+      <div class="img-wrap">
+        <img src="pics/sw01 enh.png" alt="Pool area" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Properties -->
+  <section id="properties" class="featured reveal">
+    <div class="container">
+      <h2 style="text-align:center;margin-bottom:24px;">Featured Properties</h2>
+      <div class="cards">
+        <article class="card">
+          <img src="pics/c01.jpg" alt="Featured property exterior">
+          <div class="body">
+            <div class="title">Luxury Apartment</div>
+            <p>Cozy, elegant, and minutes from the beach.</p>
+            <div class="actions"><a class="btn btn-sm" href="properties.html">View Details</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="pics/gz01.jpg" alt="Balcony view">
+          <div class="body">
+            <div class="title">Private Gazebo Suite</div>
+            <p>Spacious gazebo with garden views.</p>
+            <div class="actions"><a class="btn btn-sm" href="properties.html">View Details</a></div>
+          </div>
+        </article>
+        <article class="card">
+          <img src="pics/br01.jpg" alt="Bedroom">
+          <div class="body">
+            <div class="title">Deluxe Bedroom</div>
+            <p>Bright ensuite bedrooms with modern finishes.</p>
+            <div class="actions"><a class="btn btn-sm" href="properties.html">View Details</a></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Amenities -->
+  <section class="amenities reveal">
+    <div class="container">
+      <h2 style="text-align:center;margin-bottom:24px;">Amenities that Redefine Comfort</h2>
+      <div class="amenity-grid">
+        <div class="amenity">
+          <div class="icon"><i class="fas fa-swimmer"></i></div>
+          <div>
+            <div class="label">Swimming Pool</div>
+            <div style="color:var(--muted)">Take a refreshing dip any time.</div>
+          </div>
+        </div>
+        <div class="amenity">
+          <div class="icon"><i class="fas fa-wifi"></i></div>
+          <div>
+            <div class="label">Wi-Fi & Smart TV</div>
+            <div style="color:var(--muted)">Stay connected and entertained.</div>
+          </div>
+        </div>
+        <div class="amenity">
+          <div class="icon"><i class="fas fa-kitchen-set"></i></div>
+          <div>
+            <div class="label">Fully Furnished Kitchen</div>
+            <div style="color:var(--muted)">Cook your favorites with ease.</div>
+          </div>
+        </div>
+        <div class="amenity">
+          <div class="icon"><i class="fas fa-car"></i></div>
+          <div>
+            <div class="label">Secure Parking</div>
+            <div style="color:var(--muted)">Ample on-site parking.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location Section -->
+  <section class="location reveal">
+    <div class="container">
+      <h2>📍 Our Location</h2>
+      <p>Find us at Clara Court, conveniently located for your stay.</p>
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3218.4805191574405!2d39.75039177497489!3d-3.9495051960242464!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18400947c87572bd%3A0xa1292d7b890e7441!2sClara%20Court!5e1!3m2!1sen!2ske!4v1756856277186!5m2!1sen!2ske" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+
+  <a href="contact.html" class="floating-cta" aria-label="Book your stay">
+    <i class="fas fa-calendar-alt"></i> Book Now
+  </a>
+
+  <script>
+    // Scroll Reveal Animation
+    const reveals = document.querySelectorAll(".reveal");
+    function revealElements() {
+      const windowHeight = window.innerHeight;
+      reveals.forEach(el => {
+        const elementTop = el.getBoundingClientRect().top;
+        const elementVisible = 150;
+        if (elementTop < windowHeight - elementVisible) el.classList.add("active");
+        else el.classList.remove("active");
+      });
+    }
+    window.addEventListener("scroll", revealElements);
+    revealElements();
+
+    // Navbar Scroll Effect
+    const nav = document.querySelector("nav");
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("scrolled", window.scrollY > 100);
+    });
+
+    // Mobile Menu Toggle
+    const toggle = document.querySelector(".menu-toggle");
+    const links = document.querySelector(".nav-links");
+    toggle.addEventListener("click", () => {
+      links.classList.toggle("active");
+      document.body.style.overflow = links.classList.contains("active") ? "hidden" : "";
+    });
+  </script>
+</body>
+</html>
